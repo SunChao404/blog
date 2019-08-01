@@ -1,0 +1,39 @@
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: UTF-8
+
+
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+      validationQuery: SELECT 1 #检测数据库连接
+      initialSize: 2            #初始连接数
+      minIdle: 10               #最小连接池空闲数量
+      maxActive: 200            #最大连接池数量
+      minEvictableIdleTimeMillis: 180000 #--请求超时
+      testOnBorrow: false #------------获取链接的时候，不校验是否可用，开启会有损性能
+      testWhileIdle: true #---------申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      removeAbandoned: true #--------链接使用超过时间限制是否回收
+      removeAbandonedTimeout: 1800 #-----------超过时间限制时间（单位秒）
+      logAbandoned: true #------------------链接回收的时候控制台打印信息，测试环境可以加上true，线上环境false。会影响性能
+      poolPreparedStatements: true #---------是否缓存preparedStatement，
+      maxOpenPreparedStatements: true #-------------------要启用PSCache，必须配置大于0，当大于0时，
+
+
+
+mybatis-plus:
+  global-config:
+    refresh-mapper: true
+    db-column-underline: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
